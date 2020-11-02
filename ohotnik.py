@@ -27,6 +27,7 @@ def send_welcome(message):
         bot.send_sticker(message.chat.id, 'CAACAgIAAxkBAAJF5F-f1NWSI55IFZ7GIMPnGs_U5KQ1AAICJAAC2NjhAAF8cWMQlFx9fB4E')
         return
 
+
 @bot.message_handler(func=lambda message:True)
 def check_1(message):
     try:
@@ -61,6 +62,8 @@ def process_step(message):
             bot.register_next_step_handler(message,askAge)
         elif message.text == 'Вывести мамонтейные символы':
             check_1(message)
+        elif message.text== '/menu':
+            send_w(message)
         else:
             msg=bot.send_message(chat_id," Охотник, стадо в замешательстве, они застряли в каньйоне непонятных комманд")
             bot.send_sticker(message.chat.id, 'CAACAgIAAxkBAAJF7V-f3tsv3w97iacryA1D8QPRECfrAAL7IwAC2NjhAAFnsL5BNKi8bh4E')
