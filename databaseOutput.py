@@ -2,11 +2,11 @@ import telebot
 import authy
 import json
 import pymysql
-import datetime
 from datetime import datetime
 import re
 
-import databaseInput
+
+connection = pymysql.connect(host='localhost', user='root', password='', db='ohota', charset='utf8mb4', cursorclass=pymysql.cursors.DictCursor)
 
 bot = telebot.TeleBot(authy.Token)
 
@@ -15,15 +15,16 @@ months= ['0_month','январь','февраль','март','апрель','м
 month=mydate.month
 
 def rez (userId):
-    databaseInput.connection.connect()
-    cur = databaseInput.connection.cursor()
+    connection.connect()
+    cur = connection.cursor()
     cur.execute("SELECT sum(Quantity) FROM `%s` where month =%s", (userId, month))
     a = (json.dumps(cur.fetchall(), indent=0, sort_keys=True, default=str))
     nums = re.findall(r'\d+', a)
     nums = [int(i) for i in nums]
     cur.close()
-    databaseInput.connection.close()
+    connection.close()
     return (str(", ".join(repr(e) for e in nums)))
+
 
 
 
